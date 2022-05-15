@@ -37,7 +37,7 @@ jobs:
         run: composer install
 
       - name: copy .env
-        run: cp .env.example .env
+        run: cp .env.ci .env
 
       - name: phpunit
         run: composer test
