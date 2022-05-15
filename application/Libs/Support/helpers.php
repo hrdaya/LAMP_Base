@@ -1,8 +1,8 @@
 <?php
 
-use Carbon\Carbon;
-
 declare(strict_types=1);
+
+use Carbon\Carbon;
 
 if (!function_exists('now')) {
     /**
