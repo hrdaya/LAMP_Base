@@ -18,6 +18,7 @@
         "ext-openssl": "*",
         "ext-pcre": "*",
         "ext-pdo": "*",
+        "ext-redis": "*",
         "ext-tokenizer": "*",
         "ext-xml": "*",
         "ext-zip": "*",
