@@ -1,0 +1,82 @@
+{
+    "recommendations": [
+        // 基本 ====================================================================================
+        "formulahendry.auto-close-tag", // Auto Close Tag
+        "formulahendry.auto-rename-tag", // Auto Rename Tag
+        "mikestead.dotenv", // DotENV
+        "pkief.material-icon-theme", // Material Icon Theme
+        "editorconfig.editorconfig", // EditorConfig for VS Code
+        "abierbaum.vscode-file-peek", // File Peek
+        "oderwat.indent-rainbow", // indent-rainbow
+        "ryu1kn.partial-diff", // Partial Diff
+        "christian-kohler.path-intellisense", // Path Intellisense
+        // "esbenp.prettier-vscode", // Prettier
+        "chrmarti.regex", // Regex Previewer
+        "humao.rest-client", // REST Client
+        "shardulm94.trailing-spaces", // Trailing Spaces
+        "visualstudioexptteam.vscodeintellicode", // Visual Studio IntelliCode
+        "tomoki1207.pdf", // vscode-pdf
+        "dotjoshjohnson.xml", // XML Tools
+        "redhat.vscode-yaml", // YAML
+        "xyz.local-history", // Local History
+        "gruntfuggly.todo-tree", // Todo Tree
+        "ms-azuretools.vscode-docker", // Docker
+        "bbenoist.vagrant", // Vagrant
+        "ms-vsliveshare.vsliveshare-pack", // Live Share Extension Pack
+        "johnpapa.vscode-peacock", // Peacock
+        "mrmlnc.vscode-apache", // Apache Conf
+        "shanoor.vscode-nginx", // nginx.conf
+        "eg2.vscode-npm-script", // npm
+        "alefragnani.bookmarks", // Bookmarks
+        "wmaurer.change-case", // change-case
+        // 日本語 ==================================================================================
+        "ms-ceintl.vscode-language-pack-ja", // Japanese Language Pack for VS Code
+        "sgryjp.japanese-word-handler", // Japanese Word Handler
+        "saikou9901.evilinspector", // EvilInspector
+        // CSV =====================================================================================
+        "mechatroner.rainbow-csv", // Rainbow CSV
+        "janisdd.vscode-edit-csv", // Edit csv
+        // LOG =====================================================================================
+        "berublan.vscode-log-viewer", // Log Viewer
+        "emilast.logfilehighlighter", // Log File Highlighter
+        // Markdown ================================================================================
+        "bierner.github-markdown-preview", // GitHub Markdown Preview
+        "yzhang.markdown-all-in-one", // Markdown All in One
+        "davidanson.vscode-markdownlint", // markdownlint
+        // HTML, CSS ===============================================================================
+        "pranaygp.vscode-css-peek", // CSS Peek
+        "mkaufman.htmlhint", // HTMLHint
+        "zignd.html-css-class-completion", // IntelliSense for CSS class names in HTML
+        "syler.sass-indented", // Sass
+        "gencer.html-slim-scss-css-class-completion", // SCSS Everywhere
+        "mrmlnc.vscode-scss", // SCSS IntelliSense
+        "stylelint.vscode-stylelint", // stylelint
+        // Javascript ==============================================================================
+        "xabikos.javascriptsnippets", // JavaScript (ES6) code snippets
+        "dbaeumer.vscode-eslint", // ESLint
+        "johnsoncodehk.volar", // Volar
+        // PHP =====================================================================================
+        "xdebug.php-debug", // PHP Debug
+        "neilbrayfield.php-docblocker", // PHP DocBlocker
+        "bmewburn.vscode-intelephense-client", // PHP Intelephense
+        "mehedidracula.php-namespace-resolver", // PHP Namespace Resolver
+        "junstyle.php-cs-fixer", // php cs fixer
+        // Laravel =================================================================================
+        "ryannaddy.laravel-artisan", // Laravel Artisan
+        "shufo.vscode-blade-formatter", // Laravel Blade formatter
+        "onecentlin.laravel-blade", // Laravel Blade Snippets
+        "austenc.laravel-blade-spacer", // Laravel Blade Spacer
+        "amiralizadeh9480.laravel-extra-intellisense", // Laravel Extra Intellisense
+        "onecentlin.laravel5-snippets", // Laravel Snippets
+        // TEST ====================================================================================
+        "recca0120.vscode-phpunit", // PHPUnit Test Explorer
+        "hbenl.vscode-test-explorer", // Test Explorer UI
+        "ms-vscode.test-adapter-converter", // Test Adapter Converter
+        // Remote ==================================================================================
+        "ms-vscode-remote.vscode-remote-extensionpack", // Remote Development
+        "ms-vscode-remote.remote-ssh-edit", // Remote - SSH: Editing Configuration Files
+        // Git =====================================================================================
+        "eamodio.gitlens", // GitLens
+        "mhutchie.git-graph" // Git Graph
+    ]
+}

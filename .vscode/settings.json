@@ -1,0 +1,115 @@
+{
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.rulers": [
+        80,
+        100,
+        120
+    ],
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "terminal.integrated.scrollback": 100000,
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+    "php-docblocker.qualifyClassNames": true,
+    "php-docblocker.useShortNames": true,
+    "php-docblocker.alignParams": true,
+    "php-docblocker.returnGap": true,
+    "todo-tree.filtering.useBuiltInExcludes": "file and search excludes",
+    "todo-tree.filtering.excludeGlobs": [
+        "**/node_modules",
+        "**/vendor",
+        "**/.history"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "tag",
+        "foreground": "#000",
+        "background": "#fff",
+        "opacity": 100,
+        "iconColour": "#00f"
+    },
+    "todo-tree.general.tags": [
+        "TODO:",
+        "FIXME:",
+        "XXX:",
+        "WARNING:",
+        "REVIEW:",
+        "OPTIMIZE",
+        "HACK:",
+        "NOTE:",
+        "CHANGED:"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        // あとで追加、修正するべき機能がある。
+        "TODO:": {
+            "foreground": "#424242",
+            "background": "#ffff00",
+            "iconColour": "#ffff00",
+            "icon": "checklist"
+        },
+        // 既知の不具合があるコード。修正が必要。
+        "FIXME:": {
+            "foreground": "#ecf0f1",
+            "background": "#e64a19",
+            "iconColour": "#e64a19",
+            "icon": "bug"
+        },
+        // 危険！動くけどなぜうごくかわからない。
+        "XXX:": {
+            "foreground": "#ecf0f1",
+            "background": "#d50000",
+            "iconColour": "#d50000",
+            "icon": "flame"
+        },
+        // 意図した通りに動くか、見直す必要がある。
+        "REVIEW:": {
+            "foreground": "#ecf0f1",
+            "background": "#5e35b1",
+            "iconColour": "#5e35b1",
+            "icon": "eye"
+        },
+        // 無駄が多いコードなので最適化が必要。(ロジックに無駄がある)
+        "OPTIMIZE:": {
+            "foreground": "#ecf0f1",
+            "background": "#8e24aa",
+            "iconColour": "#8e24aa",
+            "icon": "code-square"
+        },
+        // あまりきれいじゃないコード。リファクタリングが必要。(変数名が悪いなど読みにくいコード)
+        "HACK:": {
+            "foreground": "#ecf0f1",
+            "background": "#8e24aa",
+            "iconColour": "#8e24aa",
+            "icon": "code-square"
+        },
+        // なぜ、こうなったという情報を残す。
+        "NOTE:": {
+            "foreground": "#ecf0f1",
+            "background": "#1e88e5",
+            "iconColour": "#1e88e5",
+            "icon": "note",
+            "hideFromTree": true
+        },
+        // どういった注意が必要かという情報を残す。
+        "WARNING:": {
+            "foreground": "#ecf0f1",
+            "background": "#fb8c00",
+            "iconColour": "#fb8c00",
+            "icon": "alert",
+            "hideFromTree": true
+        },
+        // コードをどのように変更したかという情報を残す。
+        "CHANGED:": {
+            "foreground": "#ecf0f1",
+            "background": "#43a047",
+            "iconColour": "#43a047",
+            "icon": "comment",
+            "hideFromTree": true
+        }
+    },
+}
