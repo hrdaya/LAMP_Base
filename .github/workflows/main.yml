@@ -17,8 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: dokcer-compose up
-        run: dokcer compose up -d
+      - name: docker-compose up
+        run: docker compose up -d
 
       - name: composer install
         run: docker-compose exec -T web bash -c "composer install"
