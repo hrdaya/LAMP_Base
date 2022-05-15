@@ -6,15 +6,19 @@ jobs:
   build:
     runs-on: ubuntu-20.04
 
+    env:
+      DB_HOST: ${{secrets.DB_HOST}}
+      DB_PORT: ${{secrets.DB_PORT}}
+      DB_DATABASE: ${{secrets.DB_DATABASE}}
+      DB_USERNAME: ${{secrets.DB_USERNAME}}
+      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: copy .env
-        run: cp .env.ci .env
-
       - name: dokcer-compose up
-        run: bash ./vessel start
+        run: dokcer-compose up
 
       - name: composer install
         run: docker-compose exec -T web bash -c "composer install"
