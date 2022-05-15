@@ -49,8 +49,14 @@
         }
     },
     "scripts": {
+        "test": [
+            "./vendor/bin/phpunit"
+        ],
         "format": [
             "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php"
+        ],
+        "format_dry_run": [
+            "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php  --dry-run"
         ],
         "stan": [
             "./vendor/bin/phpstan analyse"
