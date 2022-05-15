@@ -184,7 +184,7 @@ class Pdf extends Fpdi
         // CellPadding を設定
         $this->SetCellPaddings(0, 0, 0, 0);
 
-        //自動改ページ無効
+        // 自動改ページ無効
         $this->SetAutoPageBreak(false);
 
         // ヘッダーの出力を無効化

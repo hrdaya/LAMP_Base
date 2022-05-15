@@ -6,7 +6,7 @@ namespace App\Libs\Mailer;
 
 use Exception;
 
-//エラーメッセージ用日本語言語ファイルを読み込む場合
+// エラーメッセージ用日本語言語ファイルを読み込む場合
 require 'vendor/phpmailer/phpmailer/language/phpmailer.lang-ja.php';
 
 /**
@@ -23,11 +23,11 @@ class Mailer
 
         $this->mail = new PHPMailer(true);
 
-        //日本語用設定(UTF-8でよければ不要)
+        // 日本語用設定(UTF-8でよければ不要)
         $this->mail->CharSet  = 'iso-2022-jp';
         $this->mail->Encoding = '7bit';
 
-        //エラーメッセージ用言語ファイルを使用する場合に指定
+        // エラーメッセージ用言語ファイルを使用する場合に指定
         $this->mail->setLanguage('ja', 'vendor/phpmailer/phpmailer/language/');
     }
 
@@ -86,7 +86,7 @@ class Mailer
             // 送信
             return $this->mail->send();
         } catch (Exception $e) {
-            //エラー（例外：Exception）が発生した場合
+            // エラー（例外：Exception）が発生した場合
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
     }

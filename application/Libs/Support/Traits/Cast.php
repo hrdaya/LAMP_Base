@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Libs\Support\Traits;
 
-use Carbon\CarbonImmutable;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use RuntimeException;
 use stdClass;
 

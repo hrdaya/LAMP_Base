@@ -7,13 +7,13 @@ namespace App\Libs\Mailer;
 use PHPMailer\PHPMailer\PHPMailer as BaseMailer;
 
 /**
- * PHPMailerの拡張
+ * PHPMailerの拡張.
  */
 class PHPMailer extends BaseMailer
 {
     /**
      * メールアドレスのチェック
-     * RFC違反のメールアドレス(docomoやauの古い形式)を許可する
+     * RFC違反のメールアドレス(docomoやauの古い形式)を許可する.
      *
      * Check that a string looks like an email address.
      * Validation patterns supported:
@@ -43,17 +43,17 @@ class PHPMailer extends BaseMailer
         if ($patternselect === null) {
             $patternselect = static::$validator;
         }
-        //Don't allow strings as callables, see SECURITY.md and CVE-2021-3603
+        // Don't allow strings as callables, see SECURITY.md and CVE-2021-3603
         if (\is_callable($patternselect) && !\is_string($patternselect)) {
             return \call_user_func($patternselect, $address);
         }
-        //Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
+        // Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
         if (strpos($address, "\n") !== false || strpos($address, "\r") !== false) {
             return false;
         }
 
         switch ($patternselect) {
-            case 'pcre': //Kept for BC
+            case 'pcre': // Kept for BC
             case 'pcre8':
                 /*
                  * A more complex and more permissive version of the RFC5322 regex on which FILTER_VALIDATE_EMAIL
@@ -104,6 +104,7 @@ class PHPMailer extends BaseMailer
 
                 // DocomoとAUでない場合はdefaultのチェックを実行する
 
+                // no break
             case 'php':
             default:
                 return filter_var($address, FILTER_VALIDATE_EMAIL) !== false;

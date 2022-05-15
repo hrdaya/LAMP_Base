@@ -138,7 +138,8 @@ trait FileSupportTrait
     /**
      * Determine if the given path is a directory.
      *
-     * @param  string  $directory
+     * @param string $directory
+     *
      * @return bool
      */
     private function isDirectory($directory)
@@ -149,7 +150,8 @@ trait FileSupportTrait
     /**
      * Determine if the given path is readable.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return bool
      */
     private function isReadable($path)
@@ -160,7 +162,8 @@ trait FileSupportTrait
     /**
      * Determine if the given path is writable.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return bool
      */
     private function isWritable($path)
@@ -171,7 +174,8 @@ trait FileSupportTrait
     /**
      * Determine if the given path is a file.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return bool
      */
     private function isFile($file)
@@ -182,10 +186,11 @@ trait FileSupportTrait
     /**
      * Create a directory.
      *
-     * @param  string  $path
-     * @param  int  $mode
-     * @param  bool  $recursive
-     * @param  bool  $force
+     * @param string $path
+     * @param int    $mode
+     * @param bool   $recursive
+     * @param bool   $force
+     *
      * @return bool
      */
     private function makeDirectory($path, $mode = 0755, $recursive = false, $force = false)
@@ -200,11 +205,12 @@ trait FileSupportTrait
     /**
      * Get or set UNIX mode of a file or directory.
      *
-     * @param  string  $path
-     * @param  int|null  $mode
+     * @param string   $path
+     * @param null|int $mode
+     *
      * @return mixed
      */
-    public function chmod($path, $mode = null)
+    private function chmod($path, $mode = null)
     {
         if ($mode) {
             return chmod($path, $mode);
