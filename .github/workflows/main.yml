@@ -6,29 +6,23 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
-    - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: dokcer-compose up
-      run: |
-        bash ./vessel start
+      - name: dokcer-compose up
+        run: bash ./vessel start
 
-    - name: composer install
-      run: |
-        docker-compose exec -T web bash -c "composer install"
+      - name: composer install
+        run: docker-compose exec -T web bash -c "composer install"
 
-    - name: phpunit
-      run: |
-        docker-compose exec -T web bash -c "composer test"
+      - name: phpunit
+        run: docker-compose exec -T web bash -c "composer test"
 
-    - name: php-cs-fixer
-      run: |
-        docker-compose exec -T web bash -c "composer format_dry_run"
+      - name: php-cs-fixer
+        run: docker-compose exec -T web bash -c "composer format_dry_run"
 
-    - name: stan
-      run: |
-        docker-compose exec -T web bash -c "composer stan"
+      - name: stan
+        run: docker-compose exec -T web bash -c "composer stan"
 
-    - name: md
-      run: |
-        docker-compose exec -T web bash -c "composer md"
+      - name: md
+        run: docker-compose exec -T web bash -c "composer md"
