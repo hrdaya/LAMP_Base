@@ -2,7 +2,7 @@ version: '3.8'
 services:
     web:
         build:
-            context: ./docker/apache
+            context: ./.docker/apache
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -32,10 +32,10 @@ services:
             MYSQL_PASSWORD: "${DB_PASSWORD}"
             TZ: "Asia/Tokyo"
         volumes:
-            - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d # コンテナ初回起動時に自動実行
-            - '/docker/mysql/conf.d:/etc/mysql/conf.d' # 設定ファイル
-            - ./docker/mysql/_data:/var/lib/mysql # データ
-            - ./docker/mysql/_logs:/var/log/mysql #ログ
+            - ./.docker/mysql/initdb.d:/docker-entrypoint-initdb.d # コンテナ初回起動時に自動実行
+            - ./.docker/mysql/conf.d:/etc/mysql/conf.d # 設定ファイル
+            - ./.docker/mysql/_data:/var/lib/mysql # データ
+            - ./.docker/mysql/_logs:/var/log/mysql #ログ
         command: bash -c 'usermod -o -u ${WWWUSER} mysql; groupmod -o -g ${WWWGROUP} mysql; chown -R mysql:mysql /var/run/mysqld/ /var/log/mysql/ /var/lib/mysql/; /entrypoint.sh mysqld --user=mysql --console'
         networks:
             - vessel
@@ -51,11 +51,18 @@ services:
             - mysql
     redis:
         image: 'redis:latest'
+        ports:
+            - "${REDIS_PORT:-6379}:6379"
         networks:
             - vessel
+    redisinsight:
+        image: redislabs/redisinsight:latest
+        ports:
+            - "${REDIS_HTTP_PORT:-8001}:8001"
     mailhog:
         image: 'mailhog/mailhog:latest'
         ports:
+            - "${MAILHOG_MAIL_PORT:-1025}:1025"
             - "${MAILHOG_HTTP_PORT:-8025}:8025"
         networks:
             - vessel

@@ -6,13 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-20.04
 
-    env:
-      DB_HOST: ${{secrets.DB_HOST}}
-      DB_PORT: ${{secrets.DB_PORT}}
-      DB_DATABASE: ${{secrets.DB_DATABASE}}
-      DB_USERNAME: ${{secrets.DB_USERNAME}}
-      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+    strategy:
+      matrix:
+        php: [ '7.4.29', '8.0', '8.1' ]
 
+    name: PHP ${{ matrix.php }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,7 +18,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4.29'
+          php-version: ${{ matrix.php }}
           extensions: bcmath, ctype, curl, dom, fileinfo, gd, intl, json, mbstring, openssl, pcre, pdo, redis, tokenizer, xml, zip
 
       - name: cache vendor
@@ -43,7 +41,7 @@ jobs:
         run: composer test
 
       - name: php-cs-fixer
-        run: composer format_dry_run
+        run: composer format --dry-run
 
       - name: stan
         run: composer stan
