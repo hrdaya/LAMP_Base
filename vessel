@@ -8,25 +8,36 @@
 ESC_SEQ="\x1b["
 COL_RESET=${ESC_SEQ}"39;49;00m"
 COL_YELLOW=${ESC_SEQ}"0;33m"
-COL_BYELLOW=${ESC_SEQ}"33;01m"
+COL_BOLD_YELLOW=${ESC_SEQ}"33;01m"
 COL_GREEN=${ESC_SEQ}"0;32m"
 COL_MAGENTA=${ESC_SEQ}"0;35m"
 
 # コンテナの名称
 CONTAINER_APP="web"
-CONTAINER_MYSQL="mysql"
+CONTAINER_MYSQL="mysql_write"
 CONTAINER_REDIS="redis"
 
 # OSの種別取得
 UNAMEOUT="$(uname -s)"
 case "${UNAMEOUT}" in
-    Linux*)  MACHINE=linux;;
-    Darwin*) MACHINE=mac;;\
-    *)       MACHINE="UNKNOWN"
+    Linux*)  MACHINE="linux";;
+    Darwin*) MACHINE="mac";;
+    *)       MACHINE="UNKNOWN";;
 esac
 
 if [ "$MACHINE" == "UNKNOWN" ]; then
-    echo "サポート外のOSです。 [$(uname -s)] macOS、Windows(WSL2)でご使用ください。"
+    echo "サポート外のOSです。 [${UNAMEOUT}] macOS、Windows(WSL2)でご使用ください。"
+fi
+
+# プラットフォームを取得
+if [ "$MACHINE" == "mac" ]; then
+    if [ "$(uname -m)" = "arm64" ]; then
+        export PLATFORM="amd64"
+    else
+        export PLATFORM="x86_64"
+    fi
+else
+    export PLATFORM="x86_64"
 fi
 
 # docker-composeコマンドの設定(`docker-compose`と`docker compose`があるので揃える)
@@ -46,7 +57,7 @@ export WWWGROUP=${WWWGROUP:-$(id -g)}
 
 # コンテナが起動されていないとき
 function container_is_not_running {
-    printf "${COL_BYELLOW}コンテナが起動していません。${COL_RESET}\n"
+    printf "${COL_BOLD_YELLOW}コンテナが起動していません。${COL_RESET}\n"
     printf "次のコマンドを実行してコンテナを起動してください。: ${COL_GREEN}bash ./vessel start${COL_RESET}\n"
 
     exit 1
@@ -67,22 +78,26 @@ function showHelp() {
     commands="$commands ${COL_GREEN}  bash ./vessel -h${COL_RESET}              ヘルプの表示\n"
     commands="$commands ${COL_GREEN}  bash ./vessel help${COL_RESET}            ヘルプの表示\n"
     commands="$commands ${COL_GREEN}  bash ./vessel links${COL_RESET}           各サービスのLINKを表示\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel start${COL_RESET}           コンテナの起動\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel up${COL_RESET} ${COL_YELLOW}<options>${COL_RESET}    コンテナの起動\n"
     commands="$commands ${COL_GREEN}  bash ./vessel stop${COL_RESET}            コンテナの停止\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel restart${COL_RESET}         コンテナの再起動\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel down${COL_RESET}            Docker Composeで作ったコンテナを停止し、コンテナとネットワークを削除\n"
     commands="$commands ${COL_GREEN}  bash ./vessel destroy${COL_RESET}         Docker Compose で作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel rebuild${COL_RESET}         コンテナの再構築\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel build${COL_RESET}           コンテナの再構築\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel build-no-cache${COL_RESET}  コンテナの再構築(キャッシュを使用しない)\n"
     commands="$commands ${COL_GREEN}  bash ./vessel logs${COL_RESET} ${COL_YELLOW}<行数>${COL_RESET}     Docker Compose のログ表示(行数は各コンテナのログの最終行から遡った行数)\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel gateway${COL_RESET}         コンテナの Gateway の IPアドレスを取得(RedisInsightの接続先設定のIPアドレス)\n"
     commands="$commands ${COL_GREEN}  bash ./vessel php${COL_RESET} ${COL_YELLOW}<file>${COL_RESET}      コンテナ内で PHP を実行\n"
     commands="$commands ${COL_GREEN}  bash ./vessel composer${COL_RESET} ${COL_YELLOW}<cmd>${COL_RESET}  コンテナ内で Composer コマンドを実行\n"
     commands="$commands ${COL_GREEN}  bash ./vessel dump${COL_RESET}            コンテナ内で composer dump-autoload を実行\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel test${COL_RESET} ${COL_YELLOW}<options>${COL_RESET}  コンテナ内でテストを実行\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel test${COL_RESET} ${COL_YELLOW}<options>${COL_RESET}  コンテナ内で PHPUnit を実行\n"
     commands="$commands ${COL_GREEN}  bash ./vessel node${COL_RESET}            コンテナの Node.js のバージョンを表示\n"
     commands="$commands ${COL_GREEN}  bash ./vessel npm${COL_RESET} ${COL_YELLOW}<cmd>${COL_RESET}       コンテナ内で npm コマンド実行\n"
     commands="$commands ${COL_GREEN}  bash ./vessel npx${COL_RESET} ${COL_YELLOW}<cmd>${COL_RESET}       コンテナ内で npx コマンド実行\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel ssh${COL_RESET}             WEBコンテナ内にshellログイン\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel ssh${COL_RESET}             WEBコンテナ内に shell ログイン\n"
     commands="$commands ${COL_GREEN}  bash ./vessel root${COL_RESET}            WEBコンテナに root ユーザで shell ログイン\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel mysql${COL_RESET}           MySQLコンテナのMySQLにログイン\n"
-    commands="$commands ${COL_GREEN}  bash ./vessel redis${COL_RESET}           RedisコンテナのRedisにログイン\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel mysql${COL_RESET}           MySQLコンテナの MySQL にログイン\n"
+    commands="$commands ${COL_GREEN}  bash ./vessel redis${COL_RESET}           Redisコンテナの Redis にログイン\n"
 
     printf "\n"
     printf "$commands\n"
@@ -110,13 +125,20 @@ if [ $# -gt 0 ]; then
         showLink
 
     # コンテナの起動
-    elif [ "$1" == "start" ]; then
-        docker-compose up -d
-        printf "\n"
-        showLink
+    elif [ "$1" == "up" ] || [ "$1" == "start" ]; then
+        shift 1
+        docker-compose up "$@"
 
     # コンテナの停止
-    elif [ "$1" == "stop" ]; then
+    elif [ "$1" == "stop" ] || [ "$1" == "halt" ]; then
+        docker-compose stop
+
+    # コンテナの再起動
+    elif [ "$1" == "restart" ]; then
+        docker-compose restart
+
+    # Docker Composeで作ったコンテナを停止し、コンテナとネットワークを削除
+    elif [ "$1" == "down" ]; then
         docker-compose down
 
     # Docker Composeで作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去
@@ -124,8 +146,12 @@ if [ $# -gt 0 ]; then
     elif [ "$1" == "destroy" ]; then
         docker-compose down --rmi all --volumes --remove-orphans
 
-    # コンテナの再構築
-    elif [ "$1" == "rebuild" ]; then
+    # コンテナのイメージの構築
+    elif [ "$1" == "build" ]; then
+        docker-compose build
+
+    # コンテナのイメージの構築(キャッシュ無し)
+    elif [ "$1" == "build-no-cache" ]; then
         docker-compose build --no-cache
 
     # ログ出力
@@ -143,6 +169,10 @@ if [ $# -gt 0 ]; then
         else
             container_is_not_running
         fi
+
+    # コンテナのGatewayのIPアドレスを取得(RedisInsightの接続先設定のIPアドレスを取得)
+    elif [ "$1" == "gateway" ]; then
+        docker inspect --format='{{range .NetworkSettings.Networks}}{{.Gateway}}{{end}}' $(docker-compose ps -q redis)
 
     # PHP
     elif [ "$1" == "php" ]; then
