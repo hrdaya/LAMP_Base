@@ -5,6 +5,10 @@ ARG WWWGROUP
 RUN groupadd --force -g $WWWGROUP vessel \
     && useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 vessel
 
+# ApacheのUser/Groupをセット
+ENV APACHE_RUN_USER vessel
+ENV APACHE_RUN_GROUP vessel
+
 # タイムゾーンの設定
 ARG TZ
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
