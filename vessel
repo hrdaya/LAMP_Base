@@ -13,7 +13,7 @@ COL_GREEN=${ESC_SEQ}"0;32m"
 COL_MAGENTA=${ESC_SEQ}"0;35m"
 
 # コンテナの名称
-CONTAINER_APP="web"
+CONTAINER_APP="php"
 CONTAINER_MYSQL="mysql_write"
 CONTAINER_REDIS="redis"
 
