@@ -31,15 +31,24 @@ dump(Carbon::make('2000-01-01 12:34:56')->format('Y-m-d H:i:s'));
 // Redisの読み書き確認
 $redis = new Redis();
 $redis->connect($_ENV['REDIS_HOST'], $_ENV['REDIS_PORT']);
+$redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_JSON);
 
-$redis->set('key', json_encode([
+$redis->set('key', [
     'key1' => 'value1',
     'key2' => 'value2',
-]));
+]);
 
-dump(json_decode($redis->get('key'), true));
+dump($redis->get('key'));
+
+$redis->set('key3', 'value3');
+
+dump($redis->get('key3'));
 
 $redis->close();
+
+// SESSIONの値がRedisに書き込まれるかの確認
+session_start();
+$_SESSION['session_key'] = 'session_value';
 
 // メール送信でMailhogに飛んでいるかの確認
 mail(
