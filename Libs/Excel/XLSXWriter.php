@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Excel;
+namespace Libs\Excel;
 
 /**
  * PHP_XLSXWriter(改).

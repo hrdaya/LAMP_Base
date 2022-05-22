@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Excel;
+namespace Libs\Pdf;
 
-interface ExcelInterface
+interface PdfInterface
 {
     /**
-     * Excel作成の実行.
+     * PDF作成を実行.
      */
     public function handle(array $params): void;
 

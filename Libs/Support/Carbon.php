@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Date\Support;
+namespace Libs\Support;
 
 use Carbon\Carbon as BaseCarbon;
 use Carbon\CarbonImmutable as BaseCarbonImmutable;

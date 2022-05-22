@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Support\Traits;
+namespace Libs\Support;
 
 use DateTime;
 use RuntimeException;

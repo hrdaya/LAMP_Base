@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Excel;
+namespace Libs\Excel;
 
-use App\Libs\Support\Traits\FileSupportTrait;
+use Libs\Support\FileSupportTrait;
 
 abstract class ExcelAbstruct implements ExcelInterface
 {

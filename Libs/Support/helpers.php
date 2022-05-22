@@ -3,6 +3,21 @@
 declare(strict_types=1);
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+
+// Carbon::parse($time)で＄timeにNULLを渡すと現在時刻のCarbonインスタンスが返ってくるためNULLのときはNULLを返すようにするマクロ
+if (!Carbon::hasMacro('make')) {
+    Carbon::macro('make', static function ($time = null, $tz = null) {
+        return $time === null ? null : self::this()->parse($time, $tz);
+    });
+}
+
+// CarbonImmutable::parse($time)で＄timeにNULLを渡すと現在時刻のCarbonImmutableインスタンスが返ってくるためNULLのときはNULLを返すようにするマクロ
+if (!CarbonImmutable::hasMacro('make')) {
+    CarbonImmutable::macro('make', static function ($time = null, $tz = null) {
+        return $time === null ? null : self::this()->parse($time, $tz);
+    });
+}
 
 if (!function_exists('now')) {
     /**
@@ -15,6 +30,37 @@ if (!function_exists('now')) {
     function now($tz = null)
     {
         return Carbon::now($tz);
+    }
+}
+
+if (!function_exists('dump')) {
+    /**
+     * dumpを整形して出力
+     *
+     * @param mixed $value 出力する値
+     *
+     * @return void
+     */
+    function dump($value)
+    {
+        echo '<pre class="xdebug">';
+        var_dump($value);
+        echo '</pre>';
+    }
+}
+
+if (!function_exists('dd')) {
+    /**
+     * dumpを整形して出力し、処理を終了
+     *
+     * @param mixed $value 出力する値
+     *
+     * @return void
+     */
+    function dd($value)
+    {
+        dump($value);
+        exit;
     }
 }
 

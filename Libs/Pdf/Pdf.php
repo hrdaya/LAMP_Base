@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Libs\Pdf;
+namespace Libs\Pdf;
 
-use App\Libs\Support\Traits\FileSupportTrait;
+use Libs\Support\FileSupportTrait;
 use OutOfBoundsException;
 use RuntimeException;
 use setasign\Fpdi\Tcpdf\Fpdi;
