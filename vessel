@@ -51,6 +51,10 @@ if [ -f .env ]; then
     source .env
 fi
 
+# MySQLの「docker-entrypoint-initdb.d」のフォルダ内の「.sh」ファイルに実行権限を付与しておく
+chmod a+x ./.docker/mysql/master/initdb.d/*.sh
+chmod a+x ./.docker/mysql/slave/initdb.d/*.sh
+
 # 実行しているユーザIDとグループIDを取得
 export WWWUSER=${WWWUSER:-$UID}
 export WWWGROUP=${WWWGROUP:-$(id -g)}
